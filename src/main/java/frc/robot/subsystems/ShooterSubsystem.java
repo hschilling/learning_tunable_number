@@ -48,22 +48,22 @@ public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
   // IMPORTANT: Parameter order is (motor, MOI, gearing) - NOT (motor, gearing, MOI)!
   m_plant =
-      LinearSystemId.createFlywheelSystem(m_gearbox, ShooterConstants.kMomentOfInertia, ShooterConstants.kGearRatio);
+      LinearSystemId.createFlywheelSystem(m_gearbox, ShooterConstants.MOMENT_OF_INERTIA, ShooterConstants.GEAR_RATIO);
 
     m_flywheelSim = new FlywheelSim(m_plant, m_gearbox);
 
     // Initialize feedforward controller
-    m_feedforward = new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV);
+    m_feedforward = new SimpleMotorFeedforward(ShooterConstants.FEEDFORWARD_S, ShooterConstants.FEEDFORWARD_V);
 
     // Initialize PID controller with P-only
-    m_pidController = new PIDController(ShooterConstants.kP, 0, 0);
+    m_pidController = new PIDController(ShooterConstants.FEEDBACK_P, 0, 0);
 
     // Create tunable numbers for feedforward gains
-    m_kS = new TunableNumber("Shooter/kS", ShooterConstants.kS, Constants.kTuningMode);
-    m_kV = new TunableNumber("Shooter/kV", ShooterConstants.kV, Constants.kTuningMode);
+    m_kS = new TunableNumber("Shooter/kS", ShooterConstants.FEEDFORWARD_S, Constants.TUNING_MODE);
+    m_kV = new TunableNumber("Shooter/kV", ShooterConstants.FEEDFORWARD_V, Constants.TUNING_MODE);
 
     // Create tunable number for P gain
-    m_kP = new TunableNumber("Shooter/kP", ShooterConstants.kP, Constants.kTuningMode);
+    m_kP = new TunableNumber("Shooter/kP", ShooterConstants.FEEDBACK_P, Constants.TUNING_MODE);
   }
 
   /**

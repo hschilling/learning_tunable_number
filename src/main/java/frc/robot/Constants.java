@@ -14,27 +14,27 @@ package frc.robot;
  */
 public final class Constants {
   // Global tuning mode - set to true to enable live tuning via SmartDashboard
-  public static final boolean kTuningMode = true;
+  public static final boolean TUNING_MODE = false;
 
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+    public static final int DRIVER_CONTROLLER_PORT = 0;
   }
 
   public static class ShooterConstants {
     // Feedforward constants (for SimpleMotorFeedforward)
-    public static final double kS = 0.25;  // Voltage to overcome static friction
-    public static final double kV = 0.00211;  // Voltage per RPM (12V / 5676 RPM for NEO)
+    public static final double FEEDFORWARD_S = 0.25;  // Voltage to overcome static friction
+    public static final double FEEDFORWARD_V = 0.00211;  // Voltage per RPM (12V / 5676 RPM for NEO)
 
     // PID constants (P-only feedback control)
-    public static final double kP = 0.004;  // P gain to provide acceleration voltage during large errors
+    public static final double FEEDBACK_P = 0.004;  // P gain to provide acceleration voltage during large errors
 
     // Physical properties for simulation
-    public static final double kGearRatio = 1.0;  // Direct drive
-    public static final double kMomentOfInertia = 0.004;  // kg*m^2, typical flywheel for shooter
+    public static final double GEAR_RATIO = 1.0;  // Direct drive
+    public static final double MOMENT_OF_INERTIA = 0.004;  // kg*m^2, typical flywheel for shooter
 
     // Target speeds in RPM
-    public static final double kLowSpeedRPM = 2000.0;   // Low speed shot
-    public static final double kMidSpeedRPM = 3500.0;   // Medium speed shot
-    public static final double kHighSpeedRPM = 5000.0;  // High speed shot
+    public static final double LOW_SPEED_RPM = 2000.0;   // Low speed shot
+    public static final double MID_SPEED_RPM = 3500.0;   // Medium speed shot
+    public static final double HIGH_SPEED_RPM = 5000.0;  // High speed shot
   }
 }

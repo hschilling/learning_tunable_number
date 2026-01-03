@@ -27,7 +27,7 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,17 +56,17 @@ public class RobotContainer {
     // Shooter button bindings
     // A button: Run shooter at low speed (2000 RPM) while held
     m_driverController.a().whileTrue(
-        m_shooterSubsystem.runAtRPM(ShooterConstants.kLowSpeedRPM)
+        m_shooterSubsystem.runAtRPM(ShooterConstants.LOW_SPEED_RPM)
     );
 
     // X button: Run shooter at medium speed (3500 RPM) while held
     m_driverController.x().whileTrue(
-        m_shooterSubsystem.runAtRPM(ShooterConstants.kMidSpeedRPM)
+        m_shooterSubsystem.runAtRPM(ShooterConstants.MID_SPEED_RPM)
     );
 
     // Y button: Run shooter at high speed (5000 RPM) while held
     m_driverController.y().whileTrue(
-        m_shooterSubsystem.runAtRPM(ShooterConstants.kHighSpeedRPM)
+        m_shooterSubsystem.runAtRPM(ShooterConstants.HIGH_SPEED_RPM)
     );
   }
 
