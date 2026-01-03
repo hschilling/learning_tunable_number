@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
   // Global tuning mode - set to true to enable live tuning via SmartDashboard
-  public static final boolean TUNING_MODE = false;
+  public static final boolean TUNING_MODE = true;
 
   public static class OperatorConstants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
