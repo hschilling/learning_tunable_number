@@ -25,8 +25,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private final LinearSystem<N1, N1, N1> m_plant;
   private final DCMotor m_gearbox = DCMotor.getNEO(1);
 
-  // Feedforward controller
-  private final SimpleMotorFeedforward m_feedforward;
+  // Feedforward controller (will be recreated when tunable values change)
+  private SimpleMotorFeedforward m_feedforward;
 
   // PID Controller (P-only for feedback correction)
   private final PIDController m_pidController;
@@ -108,10 +108,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Update feedforward gains if they changed in tuning mode
+    // Update feedforward controller if gains changed in tuning mode
+    // Note: SimpleMotorFeedforward is immutable, so we must recreate it when values change
+    // Alternative approach (commented below): calculate feedforward manually using the formula
     if (m_kS.hasChanged() || m_kV.hasChanged()) {
-      // Note: SimpleMotorFeedforward is immutable, but we can recreate if needed
-      // For now, we'll use the tunable values directly in calculate
+      m_feedforward = new SimpleMotorFeedforward(m_kS.get(), m_kV.get());
     }
 
     // Update P gain if it changed in tuning mode
@@ -122,8 +123,12 @@ public class ShooterSubsystem extends SubsystemBase {
     // Get current velocity
     double currentRPM = getCurrentRPM();
 
-    // Calculate feedforward voltage (this is the main control effort)
-    double feedforwardVoltage = m_kS.get() * Math.signum(m_targetRPM) + m_kV.get() * m_targetRPM;
+    // Calculate feedforward voltage using the SimpleMotorFeedforward object
+    // This demonstrates how to handle immutable controller objects with TunableNumbers
+    double feedforwardVoltage = m_feedforward.calculate(m_targetRPM);
+
+    // Alternative approach: Calculate feedforward manually (simpler for this case)
+    // double feedforwardVoltage = m_kS.get() * Math.signum(m_targetRPM) + m_kV.get() * m_targetRPM;
 
     // Calculate feedback voltage (small correction for errors)
     double feedbackVoltage = m_pidController.calculate(currentRPM, m_targetRPM);
